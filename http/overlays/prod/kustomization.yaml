@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+patches:
+ - target:
+      kind: ConfigMap
+      name: api-cm
+   path: patch-api-cm.yaml
+

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-grpc-v1
+  labels:
+    app: sample-grpc
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-grpc
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: sample-grpc
+        version: v1
+    spec:
+      serviceAccountName: sample-grpc-acc
+      containers:
+      - name: sample-grpc
+        image: docker.io/getinfra/sample-grpc:1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+        resources:
+          limits:
+            memory: 300Mi
+          requests:
+            memory: 200Mi
+            cpu: 50m
+        env:
+        - name: DOTNET_ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: grpc-cm
+              key: dotnet.env
