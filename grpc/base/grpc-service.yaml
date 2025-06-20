@@ -8,6 +8,7 @@ metadata:
 spec:
   ports:
   - port: 8081
-    name: tcp
+    name: grpc-8081
+    appProtocol: grpc
   selector:
     app: sample-grpc
